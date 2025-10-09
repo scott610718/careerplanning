@@ -1,0 +1,337 @@
+{
+  "careers": [
+    {
+      "job_title": "AI工程師",
+      "synonyms": [
+        "人工智慧工程師",
+        "機器學習工程師",
+        "資料科學家",
+        "資料工程師",
+        "Machine Learning Engineer",
+        "Data Scientist"
+      ],
+      "cluster_primary": "資訊與AI",
+      "recommended_tracks": [
+        "普通型(自然/資訊方向)",
+        "技術型(資訊群)"
+      ],
+      "recommended_departments": [
+        "資訊科",
+        "資料處理科",
+        "電子科",
+        "電機科",
+        "普通科"
+      ],
+      "notes": "普通科可配資訊/自然選修；技職體系可走資訊群或電資群。"
+    },
+    {
+      "job_title": "軟體工程師",
+      "synonyms": [
+        "後端工程師",
+        "前端工程師",
+        "全端工程師",
+        "App工程師"
+      ],
+      "cluster_primary": "資訊與AI",
+      "recommended_tracks": [
+        "普通型(資訊方向)",
+        "技術型(資訊群)"
+      ],
+      "recommended_departments": [
+        "資訊科",
+        "資料處理科",
+        "電子科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "電機工程師",
+      "synonyms": [
+        "電力工程師",
+        "控制工程師",
+        "嵌入式工程師"
+      ],
+      "cluster_primary": "工程與製造",
+      "recommended_tracks": [
+        "普通型(自然方向)",
+        "技術型(電機電子群)"
+      ],
+      "recommended_departments": [
+        "電機科",
+        "電子科",
+        "控制科",
+        "資訊科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "電子工程師",
+      "synonyms": [
+        "半導體工程師",
+        "通訊工程師",
+        "韌體工程師"
+      ],
+      "cluster_primary": "工程與製造",
+      "recommended_tracks": [
+        "普通型(自然方向)",
+        "技術型(電機電子群)"
+      ],
+      "recommended_departments": [
+        "電子科",
+        "電機科",
+        "資訊科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "機械工程師",
+      "synonyms": [
+        "製造工程師",
+        "設備工程師",
+        "機構工程師"
+      ],
+      "cluster_primary": "工程與製造",
+      "recommended_tracks": [
+        "普通型(自然方向)",
+        "技術型(機械群)"
+      ],
+      "recommended_departments": [
+        "機械科",
+        "電機科",
+        "汽車科",
+        "製圖科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "汽車維修技師",
+      "synonyms": [
+        "車輛工程師",
+        "汽修技師"
+      ],
+      "cluster_primary": "工程與製造",
+      "recommended_tracks": [
+        "技術型(動力機械群)"
+      ],
+      "recommended_departments": [
+        "汽車科",
+        "機械科"
+      ]
+    },
+    {
+      "job_title": "建築師",
+      "synonyms": [
+        "土木工程師",
+        "室內設計師"
+      ],
+      "cluster_primary": "營建設計",
+      "recommended_tracks": [
+        "普通型(自然/設計方向)",
+        "技術型(營建群/設計群)"
+      ],
+      "recommended_departments": [
+        "建築科",
+        "土木科",
+        "室內設計科",
+        "圖文傳播科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "化工工程師",
+      "synonyms": [
+        "製程工程師",
+        "材料工程師"
+      ],
+      "cluster_primary": "工程與製造",
+      "recommended_tracks": [
+        "普通型(自然方向)",
+        "技術型(化工群)"
+      ],
+      "recommended_departments": [
+        "化工科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "平面設計師",
+      "synonyms": [
+        "多媒體設計師",
+        "視覺設計師",
+        "UI/UX設計師"
+      ],
+      "cluster_primary": "設計與媒體",
+      "recommended_tracks": [
+        "技術型(設計群)",
+        "普通型(藝文/設計方向)"
+      ],
+      "recommended_departments": [
+        "美工科",
+        "廣告設計科",
+        "多媒體設計科",
+        "圖文傳播科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "觀光導遊",
+      "synonyms": [
+        "旅遊企劃",
+        "旅館管理"
+      ],
+      "cluster_primary": "觀光餐旅",
+      "recommended_tracks": [
+        "技術型(觀光群)",
+        "普通型(社會/商管方向)"
+      ],
+      "recommended_departments": [
+        "觀光事業科",
+        "餐飲管理科",
+        "應用英語科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "主廚",
+      "synonyms": [
+        "餐飲主廚",
+        "烘焙師傅",
+        "餐飲經理"
+      ],
+      "cluster_primary": "觀光餐旅",
+      "recommended_tracks": [
+        "技術型(餐旅群)"
+      ],
+      "recommended_departments": [
+        "餐飲管理科",
+        "觀光事業科"
+      ]
+    },
+    {
+      "job_title": "幼兒園教師",
+      "synonyms": [
+        "幼保老師",
+        "托育老師"
+      ],
+      "cluster_primary": "教育與社服",
+      "recommended_tracks": [
+        "技術型(家政群)",
+        "普通型(社會/教育方向)"
+      ],
+      "recommended_departments": [
+        "幼兒保育科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "會計師",
+      "synonyms": [
+        "財務人員",
+        "稅務會計"
+      ],
+      "cluster_primary": "商管與金融",
+      "recommended_tracks": [
+        "技術型(商業管理群)",
+        "普通型(社會/商管方向)"
+      ],
+      "recommended_departments": [
+        "會計事務科",
+        "商業經營科",
+        "資料處理科",
+        "國際貿易科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "外語導遊",
+      "synonyms": [
+        "英文導遊",
+        "日文導遊",
+        "口筆譯"
+      ],
+      "cluster_primary": "語文與國際",
+      "recommended_tracks": [
+        "技術型(外語群)",
+        "普通型(語文方向)"
+      ],
+      "recommended_departments": [
+        "應用英語科",
+        "應用日語科",
+        "觀光事業科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "美容師",
+      "synonyms": [
+        "美髮設計師",
+        "彩妝師",
+        "時尚造型"
+      ],
+      "cluster_primary": "時尚與美學",
+      "recommended_tracks": [
+        "技術型(家政群/設計群)"
+      ],
+      "recommended_departments": [
+        "美容科",
+        "流行服飾科",
+        "多媒體設計科"
+      ]
+    },
+    {
+      "job_title": "表演藝術工作者",
+      "synonyms": [
+        "舞者",
+        "演員",
+        "音樂表演者"
+      ],
+      "cluster_primary": "表演藝術",
+      "recommended_tracks": [
+        "普通型(藝才)",
+        "技術型(表演藝術類科)"
+      ],
+      "recommended_departments": [
+        "表演藝術科",
+        "音樂科",
+        "舞蹈科",
+        "普通科"
+      ]
+    },
+    {
+      "job_title": "航空維修技師",
+      "synonyms": [
+        "飛機修護",
+        "航電工程師"
+      ],
+      "cluster_primary": "航太與維修",
+      "recommended_tracks": [
+        "技術型(動力機械/電機電子)"
+      ],
+      "recommended_departments": [
+        "飛機修護科",
+        "航空電子科",
+        "機械科",
+        "電子科"
+      ]
+    },
+    {
+      "job_title": "室內設計師",
+      "synonyms": [
+        "室內規劃",
+        "空間設計"
+      ],
+      "cluster_primary": "營建設計",
+      "recommended_tracks": [
+        "技術型(設計群)",
+        "普通型(設計向)"
+      ],
+      "recommended_departments": [
+        "室內設計科",
+        "建築科",
+        "圖文傳播科",
+        "美工科",
+        "普通科"
+      ]
+    }
+  ]
+}

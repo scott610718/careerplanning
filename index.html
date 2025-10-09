@@ -1,0 +1,335 @@
+
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>臺中市 114 課程地圖｜職業→學校科系查詢（純前端）</title>
+<style>
+  :root{--bg:#0f172a;--card:#111827;--text:#e5e7eb;--muted:#94a3b8;--brand:#22d3ee;--ok:#22c55e;--bad:#ef4444;--unk:#f59e0b;}
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#0b1220,#0f172a 20%,#0b1220);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";}
+  .wrap{max-width:1100px;margin:24px auto;padding:16px;}
+  h1{font-size:28px;margin:0 0 10px;letter-spacing:.5px}
+  .sub{color:var(--muted);margin-bottom:20px}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  input[type="text"], select{background:#0b1220;border:1px solid #1f2937;border-radius:12px;color:var(--text);padding:12px 14px;min-width:280px;outline:none}
+  button{background:linear-gradient(135deg,#06b6d4,#22d3ee);color:#002336;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+  button.ghost{background:#0b1220;color:var(--text);border:1px solid #1f2937}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:14px}
+  .card{background:rgba(17,24,39,.75);border:1px solid #1f2937;border-radius:16px;padding:14px;backdrop-filter: blur(6px);}
+  .title{display:flex;gap:8px;align-items:center;margin:2px 0 6px}
+  .pill{padding:3px 8px;border-radius:999px;border:1px solid #1f2937;background:#0b1220;color:var(--muted);font-size:12px}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .lnk{padding:8px 10px;border-radius:10px;background:#0b1220;border:1px solid #1f2937;color:#93c5fd;text-decoration:none}
+  .status{font-size:12px}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .hint{color:var(--muted);font-size:13px;margin-top:8px}
+  .divider{height:1px;background:#1f2937;margin:12px 0}
+  .tag{display:inline-block;padding:4px 8px;border:1px solid #1f2937;background:#0b1220;border-radius:999px;color:#a7f3d0;font-size:12px;margin-right:6px}
+  .icon{width:28px;height:28px;display:inline-block}
+  .footer{color:#64748b;font-size:12px;margin-top:16px}
+  .kbd{background:#0b1220;border:1px solid #334155;border-radius:6px;padding:2px 6px;color:#cbd5e1}
+  .flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .section{margin-top:18px}
+  .hidden{display:none}
+  .file{display:inline-block;padding:8px 12px;border:1px dashed #334155;border-radius:12px;background:#0b1220;color:#93c5fd}
+  .cnt{color:#a5b4fc;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>臺中市 114 課程地圖｜職業→學校科系查詢</h1>
+  <div class="sub">資料源：各校官網 / Google Sites / 教育部課程計畫平臺。純前端、可離線載入 JSON，支援連結健檢與 CSV 匯出。</div>
+  <div class="bar">
+    <input id="jobInput" type="text" placeholder="輸入未來想從事的工作… 例：AI工程師、主廚、室內設計師" />
+    <select id="jobSelect"></select>
+    <button id="btnSearch">查詢</button>
+    <button id="btnReset" class="ghost">清空</button>
+  </div>
+  <div class="flex">
+    <label class="file">
+      載入學校 JSON<input id="fileSchools" type="file" accept=".json" style="display:none">
+    </label>
+    <label class="file">
+      載入職業 JSON<input id="fileCareers" type="file" accept=".json" style="display:none">
+    </label>
+    <button id="btnExport" class="ghost">匯出目前結果 CSV</button>
+  </div>
+  <div class="section">
+    <div id="matchInfo" class="hint">💡 可直接輸入職業名稱或用下拉選單選取。若輸入與資料不同，系統會用模糊比對找最接近的職業。</div>
+  </div>
+  <div class="divider"></div>
+  <div id="results" class="grid"></div>
+  <div id="empty" class="hint hidden">找不到符合的學校。可試著：1) 換一個相近職稱、2) 改選不同學制（普通/技術/綜合）、3) 於上方載入擴充後的 JSON。</div>
+  <div class="footer">© 2025 Taichung 114 CourseMap Finder · 純前端單檔 · JSON 擴充：<span class="kbd">taichung114_schools.json</span> / <span class="kbd">careers_mapping.json</span></div>
+</div>
+
+<script>
+// -------- Embedded DEFAULT datasets (可由檔案覆蓋) --------
+const EMBED_SCHOOLS = {"meta": {"city": "臺中市", "year": 114, "source": "校網/Google Sites/教育部課程平臺"}, "schools": [{"school_name": "臺中市立臺中第一高級中等學校", "short_name": "臺中一中", "district": "北區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://tcfsh.tc.edu.tw/", "course_map_links": [{"title": "114學年度入學三年課程計畫書（校方）", "url": "https://tcfsh.tc.edu.tw/p/406-1076-510818%2Cr4402.php?Lang=zh-tw", "year": 114, "source": "校網"}, {"title": "臺中一中 108課綱資源平臺｜課程地圖", "url": "https://sites.google.com/tcfsh.tc.edu.tw/108guide/%E8%AA%B2%E7%A8%8B%E8%A6%8F%E7%95%AB/%E8%AA%B2%E7%A8%8B%E5%9C%B0%E5%9C%96", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立臺中第二高級中等學校", "short_name": "臺中二中", "district": "北區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://www.tcssh.tc.edu.tw/", "course_map_links": [{"title": "課程資訊平臺｜課程地圖（含114入學）", "url": "https://sites.google.com/cloud.tcssh.tc.edu.tw/course/%E8%AA%B2%E7%A8%8B%E8%A6%8F%E5%8A%83/%E8%AA%B2%E7%A8%8B%E5%9C%B0%E5%9C%96", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立臺中女子高級中等學校", "short_name": "臺中女中", "district": "西區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://tcgs.tc.edu.tw/", "course_map_links": [{"title": "教學組｜114課程計畫", "url": "https://itcgs.tcgs.tc.edu.tw/ischool/publish_page/10/?cid=3542", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立文華高級中等學校", "short_name": "文華高中", "district": "西屯區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://whsh.tc.edu.tw/", "course_map_links": [{"title": "108課綱大平台｜114學年度課程計畫", "url": "https://web.whsh.tc.edu.tw/ischool/publish_page/1001/?cid=37431", "year": 114, "source": "校網"}, {"title": "教學組｜文華高中課程計畫（含學習地圖）", "url": "https://web.whsh.tc.edu.tw/ischool/publish_page/4/?cid=38406", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立西苑高級中學", "short_name": "西苑高中", "district": "西屯區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://sysh.tc.edu.tw/", "course_map_links": [{"title": "課程諮詢專區｜114入學新生課程地圖暨選課說明", "url": "https://sites.google.com/sysh.tc.edu.tw/featured-courses/%E9%A6%96%E9%A0%81", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立清水高級中學", "short_name": "清水高中", "district": "清水區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://www.cshs.tc.edu.tw/", "course_map_links": [{"title": "課程諮詢網站｜113、114學年度學校課程地圖", "url": "https://sites.google.com/ms.cshs.tc.edu.tw/class/course/online/chap03", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立大甲高級中學", "short_name": "大甲高中", "district": "大甲區", "type": "市立 綜合型", "track_types": ["普通型", "技術型", "綜合型"], "departments": [], "website_url": "https://djsh.tc.edu.tw/", "course_map_links": [{"title": "114學年度新生入學課程計畫書（普/技/綜）", "url": "https://djsh.tc.edu.tw/p/405-1073-449602%2Cc11633.php", "year": 114, "source": "校網"}, {"title": "114學年度多元選修課程介紹", "url": "https://sites.google.com/djsh.tc.edu.tw/1080712/%E5%A4%9A%E5%85%83%E9%81%B8%E4%BF%AE%E5%B0%88%E5%8D%80/114%E5%AD%B8%E5%B9%B4%E5%BA%A6%E5%A4%9A%E5%85%83%E9%81%B8%E4%BF%AE%E8%AA%B2%E7%A8%8B%E4%BB%8B%E7%B4%B9", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立中港高級中學", "short_name": "中港高中", "district": "梧棲區", "type": "市立 綜合型（含國中部）", "track_types": ["普通型", "綜合型"], "departments": [], "website_url": "https://cgsh.tc.edu.tw/", "course_map_links": [{"title": "課程計畫（含114學年度）", "url": "https://cgsh.tc.edu.tw/p/412-1070-11268.php", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立后綜高級中學", "short_name": "后綜高中", "district": "后里區", "type": "市立 綜合型", "track_types": ["普通型", "綜合型"], "departments": [], "website_url": "https://www.hcsh.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市立大里高級中學", "short_name": "大里高中", "district": "大里區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://whs.tc.edu.tw/", "course_map_links": [{"title": "課程總體計畫｜114學年度課程計畫-核定版", "url": "https://www.whs.tc.edu.tw/portal/index.php/2022-12-13-23-34-38", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立新社高級中學", "short_name": "新社高中", "district": "新社區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://www.sshs.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市立長億高級中學", "short_name": "長億高中", "district": "南屯區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "", "course_map_links": []}, {"school_name": "臺中市立龍津高級中等學校", "short_name": "龍津高中", "district": "龍井區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://ljsh.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市立臺中工業高級中等學校", "short_name": "臺中高工", "district": "東區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["機械科", "汽車科", "製圖科", "資訊科", "電子科", "電機科", "化工科", "圖文傳播科", "建築科", "冷凍空調科"], "website_url": "https://tcivs.tc.edu.tw/", "course_map_links": [{"title": "課綱與課程地圖（群科）", "url": "https://tcivs.tc.edu.tw/p/404-1081-40850.php", "year": 114, "source": "校網"}, {"title": "教學組｜課程計畫書（含114學年度）", "url": "https://w3.tcivs.tc.edu.tw/ischool/publish_page/31/?cid=3314", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立沙鹿工業高級中等學校", "short_name": "沙鹿高工", "district": "沙鹿區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["機械科", "汽車科", "資訊科", "電子科", "紡織科", "染整科", "圖文傳播科"], "website_url": "https://slvs.tc.edu.tw/", "course_map_links": [{"title": "學校課程計畫（含114群科總體課程計畫）", "url": "https://slvs.tc.edu.tw/p/412-1082-11187.php?Lang=zh-tw", "year": 114, "source": "校網"}, {"title": "電子科｜課程地圖（含111以後）", "url": "https://slvs.tc.edu.tw/p/412-1082-11111.php?Lang=zh-tw", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立東勢工業高級中等學校", "short_name": "東勢高工", "district": "東勢區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["機械科", "製圖科", "汽車科", "資訊科", "電子科"], "website_url": "https://tsvs.tc.edu.tw/", "course_map_links": [{"title": "114學年度實用技能學程課程計畫（公告版）", "url": "https://tsvs.tc.edu.tw/p/406-1083-453731%2Cr1657.php", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立神岡工業高級中等學校", "short_name": "神岡高工", "district": "神岡區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["機械科", "汽車科", "資訊科", "電子科", "電機科", "建築科"], "website_url": "https://sgihs.tc.edu.tw/", "course_map_links": [{"title": "課程計畫（含114學年度入學技術型課程計畫）", "url": "https://sgihs.tc.edu.tw/p/424-1120-672.php", "year": 114, "source": "校網"}]}, {"school_name": "臺中市立霧峰農業工業高級中等學校", "short_name": "霧峰農工", "district": "霧峰區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["生農群各科", "電機科", "電子科", "機械科", "圖文傳播科", "食品加工科", "園藝科", "畜產保健科", "生物產業機電科"], "website_url": "https://wufai.tc.edu.tw/", "course_map_links": [{"title": "電機科｜課程地圖(108~114) 等專業課程資訊", "url": "https://sites.google.com/wufai.tc.edu.tw/wufai-ee721/%E5%B0%88%E6%A5%AD%E8%AA%B2%E7%A8%8B%E8%A8%88%E5%8A%83%E6%9B%B8", "year": 114, "source": "Google Sites"}, {"title": "電子科｜課程升學就業（含課表/課程地圖）", "url": "https://sites.google.com/wufai.tc.edu.tw/web-electronic-features/%E8%AA%B2%E7%A8%8B%E5%8D%87%E5%AD%B8%E5%B0%B1%E6%A5%AD", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立臺中家事商業高級中等學校", "short_name": "臺中家商", "district": "東區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["商業經營科", "會計事務科", "資料處理科", "應用英語科", "幼兒保育科", "流行服飾科", "觀光事業科", "餐飲管理科"], "website_url": "https://www.tchcvs.tc.edu.tw/", "course_map_links": [{"title": "公告｜114學年度入學 選課輔導手冊與課程計畫書", "url": "https://tchcvs.tc.edu.tw/p/406-1087-497281%2Cr11.php", "year": 114, "source": "校網"}, {"title": "教務處Google站｜課程計畫/選課資訊", "url": "https://sites.google.com/tchcvs.tw/unit-1c/%E6%95%99%E5%AD%B8%E7%B5%84/%E8%AA%B2%E7%A8%8B%E8%A8%88%E7%95%AB", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市立豐原高級中等學校", "short_name": "豐原高中", "district": "豐原區", "type": "市立 普通型", "track_types": ["普通型"], "departments": [], "website_url": "https://fysh.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市立豐原高級商業職業學校", "short_name": "豐原高商", "district": "豐原區", "type": "市立 技術型", "track_types": ["技術型"], "departments": ["商業經營科", "國際貿易科", "會計事務科", "資料處理科", "應用英語科", "電子商務科"], "website_url": "https://fyvs.tc.edu.tw/", "course_map_links": [{"title": "豐商多元選修＆微課程平台（含114微課程）", "url": "https://sites.google.com/fyvs.tc.edu.tw/109fyvscurriculum/", "year": 114, "source": "Google Sites"}, {"title": "課程計畫書（新課綱專區）", "url": "https://fyvs.tc.edu.tw/p/412-1085-5010.php", "year": 114, "source": "校網"}]}, {"school_name": "臺中市私立衛道高級中學", "short_name": "衛道高中", "district": "北屯區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "餐飲管理科", "觀光事業科", "資訊科", "資料處理科", "國際貿易科", "商業經營科", "應用英語科", "應用日語科", "廣告設計科", "多媒體設計科", "幼兒保育科", "美容科"], "website_url": "https://www.vtsh.tc.edu.tw/", "course_map_links": [{"title": "衛道高中114課程計畫（含課程地圖）PDF", "url": "https://www.vtsh.tc.edu.tw/wp-content/uploads/doc/Vtsh210/%E7%A7%81%E7%AB%8B%E8%A1%9B%E9%81%93%E9%AB%98%E4%B8%AD114%E8%AA%B2%E7%A8%8B%E8%A8%88%E7%95%AB.pdf", "year": 114, "source": "校網PDF"}]}, {"school_name": "臺中市私立新民高級中學", "short_name": "新民高中", "district": "北區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "商業經營科", "國際貿易科", "資料處理科", "電子商務科", "應用英語科", "應用日語科", "資訊科", "電機科", "電子科", "美工科", "廣告設計科", "室內設計科"], "website_url": "https://www.shinmin.tc.edu.tw/", "course_map_links": [{"title": "學校課程計畫書專區（含114）", "url": "https://www.shinmin.tc.edu.tw/ischool/publish_page/128/?cid=16106", "year": 114, "source": "校網"}]}, {"school_name": "明道中學", "short_name": "明道中學", "district": "烏日區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "資訊科", "資料處理科", "商業經營科", "國際貿易科", "觀光事業科", "餐飲管理科", "應用英語科", "多媒體設計科"], "website_url": "https://www.mingdao.edu.tw/", "course_map_links": [{"title": "高中部課程地圖（普通科）", "url": "https://www2.mingdao.edu.tw/senior/study/study02.html", "year": 114, "source": "校網"}, {"title": "技高部總體課程（含114）", "url": "https://sites.google.com/ms.mingdao.edu.tw/mdvhtg/%E6%95%99%E5%AD%B8%E7%B5%84/%E6%8A%80%E9%AB%98%E9%83%A8%E7%B8%BD%E9%AB%94%E8%AA%B2%E7%A8%8B", "year": 114, "source": "Google Sites"}]}, {"school_name": "臺中市私立僑泰高級中學", "short_name": "僑泰高中", "district": "北屯區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型", "綜合型"], "departments": ["普通科", "汽車科", "資訊科", "觀光事業科", "餐飲管理科", "電子商務科", "多媒體設計科", "應用日語科", "幼兒保育科", "美容科", "照顧服務科", "時尚造型科", "飛機修護科", "航空電子科"], "website_url": "https://www.ciaotai.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市私立弘文高級中學", "short_name": "弘文高中", "district": "潭子區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "資訊科", "觀光事業科", "餐飲管理科", "應用英語科", "美工科", "廣告設計科"], "website_url": "https://www.hwhs.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市私立華盛頓高級中學", "short_name": "華盛頓高中", "district": "西屯區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "音樂科", "舞蹈科", "電影電視科", "汽車科", "電子科", "資料處理科", "廣告設計科", "餐飲管理科", "美容科"], "website_url": "https://www.wsh.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市私立大明高級中學（大里本部）", "short_name": "大明高中", "district": "大里區", "type": "私立 普通型/技術型", "track_types": ["普通型", "技術型"], "departments": ["普通科", "機械科", "汽車科", "資訊科", "電子科", "資料處理科", "廣告設計科", "觀光事業科", "餐飲管理科", "多媒體設計科", "應用英語科", "應用日語科", "幼兒保育科", "美容科", "流行服飾科"], "website_url": "https://www.taiminghs.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市私立青年高級中學", "short_name": "青年高中", "district": "北區", "type": "私立 技術型", "track_types": ["技術型"], "departments": ["普通科", "汽車科", "資訊科", "觀光事業科", "餐飲管理科", "電子商務科", "美工科", "廣告設計科", "多媒體動畫科"], "website_url": "https://www.tcsh.tc.edu.tw/", "course_map_links": []}, {"school_name": "臺中市私立致用高級中學", "short_name": "致用高中", "district": "西屯區", "type": "私立 技術型", "track_types": ["技術型"], "departments": ["資訊科", "資料處理科", "多媒體設計科"], "website_url": "https://www.cycivs.tc.edu.tw/", "course_map_links": [{"title": "資料處理科｜114課程地圖", "url": "https://www.cycivs.tc.edu.tw/ischool/publish_page/26/?cid=2553", "year": 114, "source": "校網"}]}]};
+const EMBED_CAREERS = {"careers": [{"job_title": "AI工程師", "synonyms": ["人工智慧工程師", "機器學習工程師", "資料科學家", "資料工程師", "Machine Learning Engineer", "Data Scientist"], "cluster_primary": "資訊與AI", "recommended_tracks": ["普通型(自然/資訊方向)", "技術型(資訊群)"], "recommended_departments": ["資訊科", "資料處理科", "電子科", "電機科", "普通科"], "notes": "普通科可配資訊/自然選修；技職體系可走資訊群或電資群。"}, {"job_title": "軟體工程師", "synonyms": ["後端工程師", "前端工程師", "全端工程師", "App工程師"], "cluster_primary": "資訊與AI", "recommended_tracks": ["普通型(資訊方向)", "技術型(資訊群)"], "recommended_departments": ["資訊科", "資料處理科", "電子科", "普通科"]}, {"job_title": "電機工程師", "synonyms": ["電力工程師", "控制工程師", "嵌入式工程師"], "cluster_primary": "工程與製造", "recommended_tracks": ["普通型(自然方向)", "技術型(電機電子群)"], "recommended_departments": ["電機科", "電子科", "控制科", "資訊科", "普通科"]}, {"job_title": "電子工程師", "synonyms": ["半導體工程師", "通訊工程師", "韌體工程師"], "cluster_primary": "工程與製造", "recommended_tracks": ["普通型(自然方向)", "技術型(電機電子群)"], "recommended_departments": ["電子科", "電機科", "資訊科", "普通科"]}, {"job_title": "機械工程師", "synonyms": ["製造工程師", "設備工程師", "機構工程師"], "cluster_primary": "工程與製造", "recommended_tracks": ["普通型(自然方向)", "技術型(機械群)"], "recommended_departments": ["機械科", "電機科", "汽車科", "製圖科", "普通科"]}, {"job_title": "汽車維修技師", "synonyms": ["車輛工程師", "汽修技師"], "cluster_primary": "工程與製造", "recommended_tracks": ["技術型(動力機械群)"], "recommended_departments": ["汽車科", "機械科"]}, {"job_title": "建築師", "synonyms": ["土木工程師", "室內設計師"], "cluster_primary": "營建設計", "recommended_tracks": ["普通型(自然/設計方向)", "技術型(營建群/設計群)"], "recommended_departments": ["建築科", "土木科", "室內設計科", "圖文傳播科", "普通科"]}, {"job_title": "化工工程師", "synonyms": ["製程工程師", "材料工程師"], "cluster_primary": "工程與製造", "recommended_tracks": ["普通型(自然方向)", "技術型(化工群)"], "recommended_departments": ["化工科", "普通科"]}, {"job_title": "平面設計師", "synonyms": ["多媒體設計師", "視覺設計師", "UI/UX設計師"], "cluster_primary": "設計與媒體", "recommended_tracks": ["技術型(設計群)", "普通型(藝文/設計方向)"], "recommended_departments": ["美工科", "廣告設計科", "多媒體設計科", "圖文傳播科", "普通科"]}, {"job_title": "觀光導遊", "synonyms": ["旅遊企劃", "旅館管理"], "cluster_primary": "觀光餐旅", "recommended_tracks": ["技術型(觀光群)", "普通型(社會/商管方向)"], "recommended_departments": ["觀光事業科", "餐飲管理科", "應用英語科", "普通科"]}, {"job_title": "主廚", "synonyms": ["餐飲主廚", "烘焙師傅", "餐飲經理"], "cluster_primary": "觀光餐旅", "recommended_tracks": ["技術型(餐旅群)"], "recommended_departments": ["餐飲管理科", "觀光事業科"]}, {"job_title": "幼兒園教師", "synonyms": ["幼保老師", "托育老師"], "cluster_primary": "教育與社服", "recommended_tracks": ["技術型(家政群)", "普通型(社會/教育方向)"], "recommended_departments": ["幼兒保育科", "普通科"]}, {"job_title": "會計師", "synonyms": ["財務人員", "稅務會計"], "cluster_primary": "商管與金融", "recommended_tracks": ["技術型(商業管理群)", "普通型(社會/商管方向)"], "recommended_departments": ["會計事務科", "商業經營科", "資料處理科", "國際貿易科", "普通科"]}, {"job_title": "外語導遊", "synonyms": ["英文導遊", "日文導遊", "口筆譯"], "cluster_primary": "語文與國際", "recommended_tracks": ["技術型(外語群)", "普通型(語文方向)"], "recommended_departments": ["應用英語科", "應用日語科", "觀光事業科", "普通科"]}, {"job_title": "美容師", "synonyms": ["美髮設計師", "彩妝師", "時尚造型"], "cluster_primary": "時尚與美學", "recommended_tracks": ["技術型(家政群/設計群)"], "recommended_departments": ["美容科", "流行服飾科", "多媒體設計科"]}, {"job_title": "表演藝術工作者", "synonyms": ["舞者", "演員", "音樂表演者"], "cluster_primary": "表演藝術", "recommended_tracks": ["普通型(藝才)", "技術型(表演藝術類科)"], "recommended_departments": ["表演藝術科", "音樂科", "舞蹈科", "普通科"]}, {"job_title": "航空維修技師", "synonyms": ["飛機修護", "航電工程師"], "cluster_primary": "航太與維修", "recommended_tracks": ["技術型(動力機械/電機電子)"], "recommended_departments": ["飛機修護科", "航空電子科", "機械科", "電子科"]}, {"job_title": "室內設計師", "synonyms": ["室內規劃", "空間設計"], "cluster_primary": "營建設計", "recommended_tracks": ["技術型(設計群)", "普通型(設計向)"], "recommended_departments": ["室內設計科", "建築科", "圖文傳播科", "美工科", "普通科"]}]};
+
+// -------- Small Jaro–Winkler for fuzzy matching (self-contained) --------
+function jaroWinkler(s1, s2){
+  if(!s1 || !s2) return 0;
+  s1 = s1.toLowerCase(); s2 = s2.toLowerCase();
+  const matchDistance = Math.floor(Math.max(s1.length, s2.length)/2) - 1;
+  const s1Matches = new Array(s1.length).fill(false);
+  const s2Matches = new Array(s2.length).fill(false);
+  let matches = 0, transpositions = 0;
+  for(let i=0;i<s1.length;i++){
+    const start = Math.max(0, i - matchDistance);
+    const end = Math.min(i + matchDistance + 1, s2.length);
+    for(let j=start; j<end; j++){
+      if(s2Matches[j]) continue;
+      if(s1[i] !== s2[j]) continue;
+      s1Matches[i] = true; s2Matches[j] = true; matches++; break;
+    }
+  }
+  if(matches === 0) return 0;
+  let k = 0;
+  for(let i=0;i<s1.length;i++){
+    if(!s1Matches[i]) continue;
+    while(!s2Matches[k]) k++;
+    if(s1[i] !== s2[k]) transpositions++;
+    k++;
+  }
+  transpositions /= 2;
+  const jaro = (matches/s1.length + matches/s2.length + (matches - transpositions)/matches) / 3;
+  // common prefix up to 4 chars
+  let prefix = 0;
+  for(let i=0; i<Math.min(4, s1.length, s2.length); i++){
+    if(s1[i] === s2[i]) prefix++; else break;
+  }
+  return jaro + prefix * 0.1 * (1 - jaro);
+}
+
+function bestCareerMatch(input, careers){
+  const cand = [];
+  const q = input.trim();
+  for(const c of careers){
+    const all = [c.job_title, ...(c.synonyms||[])];
+    let score = 0;
+    for(const a of all){
+      const s = jaroWinkler(q, a);
+      if(s > score) score = s;
+    }
+    cand.push({c, score});
+  }
+  cand.sort((a,b)=>b.score-a.score);
+  return cand[0];
+}
+
+// -------- Data state --------
+let SCHOOLS = EMBED_SCHOOLS;
+let CAREERS = EMBED_CAREERS;
+
+// -------- UI elements --------
+const jobInput = document.getElementById('jobInput');
+const jobSelect = document.getElementById('jobSelect');
+const btnSearch = document.getElementById('btnSearch');
+const btnReset = document.getElementById('btnReset');
+const results = document.getElementById('results');
+const empty = document.getElementById('empty');
+const matchInfo = document.getElementById('matchInfo');
+const btnExport = document.getElementById('btnExport');
+const fileSchools = document.getElementById('fileSchools');
+const fileCareers = document.getElementById('fileCareers');
+
+function populateSelect(){
+  jobSelect.innerHTML = '<option value="">（選擇職業）</option>' + CAREERS.careers.map(c=>`<option>${c.job_title}</option>`).join('');
+}
+populateSelect();
+
+jobSelect.addEventListener('change', e=>{
+  if(e.target.value) {
+    jobInput.value = e.target.value;
+  }
+});
+
+btnReset.addEventListener('click', ()=>{
+  jobInput.value = '';
+  jobSelect.value = '';
+  results.innerHTML = '';
+  empty.classList.add('hidden');
+  matchInfo.textContent = '💡 可直接輸入職業名稱或用下拉選單選取。若輸入與資料不同，系統會用模糊比對找最接近的職業。';
+});
+
+btnSearch.addEventListener('click', ()=>search());
+
+jobInput.addEventListener('keydown', e=>{
+  if(e.key==='Enter') search();
+});
+
+function search(){
+  const q = jobInput.value.trim();
+  if(!q){
+    matchInfo.textContent = '請先輸入或選擇職業。';
+    return;
+  }
+  const {c, score} = bestCareerMatch(q, CAREERS.careers);
+  const exact = (c.job_title === q);
+  matchInfo.innerHTML = exact
+    ? `🔎 以 <span class="cnt">${c.job_title}</span> 查詢。`
+    : `🔎 以 <span class="cnt">${q}</span> 模糊比對，最接近的是 <span class="cnt">${c.job_title}</span>（相似度 ${(score*100).toFixed(0)}%）。`;
+  render(c);
+}
+
+function render(career){
+  const recTracks = new Set((career.recommended_tracks||[]).map(x=>x.replace(/\(.*?\)/g,'').trim()));
+  const recDeps = new Set(career.recommended_departments||[]);
+  const cards = [];
+  for(const s of SCHOOLS.schools){
+    // track filter
+    const schoolTracks = new Set((s.track_types||[]));
+    const trackOk = [...recTracks].some(t => schoolTracks.has(t) || (t.includes('普通') && schoolTracks.has('普通型')) || (t.includes('技術') && schoolTracks.has('技術型')));
+    if(!trackOk) continue;
+    // department match (if school is 技術型)
+    let depHit = [];
+    if((s.track_types||[]).includes('技術型') && s.departments && s.departments.length){
+      depHit = s.departments.filter(d => recDeps.has(d));
+      if(depHit.length===0 && recTracks.has('技術型')) continue;
+    }
+    cards.push(renderCard(s, career, depHit));
+  }
+  results.innerHTML = cards.join('');
+  empty.classList.toggle('hidden', cards.length>0);
+}
+
+function iconFor(cluster){
+  const map = {
+    "資訊與AI": "M3 8h10l-5-5-5 5zm0 4h10l-5 5-5-5z",
+    "工程與製造": "M3 12l4-4 4 4 6-6 2 2-8 8-4-4-4 4z",
+    "觀光餐旅": "M2 7h12v2H2zM3 9h10l-1 6H4zM5 15h6v2H5z",
+    "教育與社服": "M2 10l6-6 6 6v6H2z",
+    "商管與金融": "M2 6h12v2H2zM2 10h12v2H2zM2 14h12v2H2z",
+    "設計與媒體": "M2 4h12v8H2zM4 16h8v2H4z",
+    "表演藝術": "M2 14l6-4 6 4v2H2zM5 8a3 3 0 106 0 3 3 0 00-6 0z",
+    "航太與維修": "M2 12l6-2 6 2-6 4zM8 6l2 4H6z",
+    "營建設計": "M2 12h12v6H2zM4 8h8v4H4z",
+    "語文與國際": "M2 6h12v8H2zM4 16h8v2H4z"
+  };
+  const d = map[cluster] || map["設計與媒體"];
+  return `<svg class="icon" viewBox="0 0 16 20" fill="none" stroke="currentColor"><path d="${d}" stroke-width="1.5" /></svg>`;
+}
+
+function renderCard(s, career, depHit){
+  const tags = [];
+  (s.track_types||[]).forEach(t=>tags.push(`<span class="tag">${t}</span>`));
+  if(depHit && depHit.length) tags.push(...depHit.map(d=>`<span class="tag">${d}</span>`));
+  const links = (s.course_map_links||[]).map((l,i)=>`
+    <a class="lnk" target="_blank" rel="noopener" href="${l.url}">${l.title}</a>
+    <button class="ghost" onclick="checkLink('${l.url}', this)">連結檢查</button>
+  `).join('');
+  const web = s.website_url ? `<a class="lnk" target="_blank" rel="noopener" href="${s.website_url}">學校官網</a>` : '';
+  return `
+  <div class="card">
+    <div class="title">
+      ${iconFor(career.cluster_primary)}
+      <div>
+        <div style="font-weight:800">${s.school_name}</div>
+        <div class="status">${s.district} · ${s.type}</div>
+      </div>
+    </div>
+    <div>${tags.join(' ')}</div>
+    <div class="links">${web}${links}</div>
+    <div class="hint">依據職業：<b>${career.job_title}</b>（群：${career.cluster_primary}）</div>
+  </div>`;
+}
+
+async function checkLink(url, btn){
+  const span = document.createElement('span');
+  span.className = 'status';
+  span.textContent = ' 檢查中…';
+  btn.after(span);
+  try{
+    // Try HEAD then GET (for servers not accepting HEAD)
+    let ok = false;
+    try {
+      const r1 = await fetch(url, {method:'HEAD', mode:'no-cors'});
+      ok = r1 && (r1.ok || r1.type==='opaque');
+    } catch(e){}
+    if(!ok){
+      const r2 = await fetch(url, {method:'GET', mode:'no-cors'});
+      ok = r2 && (r2.ok || r2.type==='opaque');
+    }
+    span.textContent = ok ? ' ✅ 可用（可能受 CORS 限制，以實際開啟為準）' : ' ⚠️ 可能無法存取（請直接點擊測試）';
+  }catch(err){
+    span.textContent = ' ❓ 無法判定（瀏覽器限制/CORS）';
+  }
+  setTimeout(()=>span.remove(), 5000);
+}
+
+btnExport.addEventListener('click', ()=>{
+  const rows = [['school_name','district','type','website_url','course_map_title','course_map_url']];
+  const cards = results.querySelectorAll('.card');
+  if(cards.length===0){ alert('目前沒有結果可匯出'); return; }
+  // Build from filtered SCHOOLS based on current render by re-running logic quickly
+  const q = jobInput.value.trim();
+  const {c} = bestCareerMatch(q, CAREERS.careers);
+  const recTracks = new Set((c.recommended_tracks||[]).map(x=>x.replace(/\(.*?\)/g,'').trim()));
+  const recDeps = new Set(c.recommended_departments||[]);
+  for(const s of SCHOOLS.schools){
+    const schoolTracks = new Set((s.track_types||[]));
+    const trackOk = [...recTracks].some(t => schoolTracks.has(t) || (t.includes('普通') && schoolTracks.has('普通型')) || (t.includes('技術') && schoolTracks.has('技術型')));
+    if(!trackOk) continue;
+    if((s.track_types||[]).includes('技術型') && s.departments && s.departments.length){
+      const depHit = s.departments.filter(d => recDeps.has(d));
+      if(depHit.length===0 && recTracks.has('技術型')) continue;
+    }
+    if((s.course_map_links||[]).length){
+      for(const l of s.course_map_links){
+        rows.push([s.school_name, s.district, s.type, s.website_url||'', l.title, l.url]);
+      }
+    }else{
+      rows.push([s.school_name, s.district, s.type, s.website_url||'', '', '']);
+    }
+  }
+  const csv = rows.map(r=>r.map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'taichung114_query_export.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// Local file loaders
+function loadJSONFromFile(file, cb){
+  const reader = new FileReader();
+  reader.onload = e => {
+    try{
+      const obj = JSON.parse(e.target.result);
+      cb(obj);
+    }catch(err){ alert('JSON 解析失敗：'+err.message); }
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+fileSchools.addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  loadJSONFromFile(f, obj=>{
+    if(!obj.schools) { alert('schools.json 應包含 "schools" 陣列'); return; }
+    SCHOOLS = obj;
+    alert('已載入學校資料 '+ (obj.schools.length||0) +' 筆');
+    populateSelect();
+  });
+});
+
+fileCareers.addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  loadJSONFromFile(f, obj=>{
+    if(!obj.careers) { alert('careers.json 應包含 "careers" 陣列'); return; }
+    CAREERS = obj;
+    alert('已載入職業/學群對照 '+ (obj.careers.length||0) +' 筆');
+    populateSelect();
+  });
+});
+
+// Preload select
+populateSelect();
+</script>
+</body>
+</html>

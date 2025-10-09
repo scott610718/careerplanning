@@ -1,0 +1,735 @@
+{
+  "meta": {
+    "city": "臺中市",
+    "year": 114,
+    "source": "校網/Google Sites/教育部課程平臺"
+  },
+  "schools": [
+    {
+      "school_name": "臺中市立臺中第一高級中等學校",
+      "short_name": "臺中一中",
+      "district": "北區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://tcfsh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "114學年度入學三年課程計畫書（校方）",
+          "url": "https://tcfsh.tc.edu.tw/p/406-1076-510818%2Cr4402.php?Lang=zh-tw",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "臺中一中 108課綱資源平臺｜課程地圖",
+          "url": "https://sites.google.com/tcfsh.tc.edu.tw/108guide/%E8%AA%B2%E7%A8%8B%E8%A6%8F%E7%95%AB/%E8%AA%B2%E7%A8%8B%E5%9C%B0%E5%9C%96",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立臺中第二高級中等學校",
+      "short_name": "臺中二中",
+      "district": "北區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://www.tcssh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程資訊平臺｜課程地圖（含114入學）",
+          "url": "https://sites.google.com/cloud.tcssh.tc.edu.tw/course/%E8%AA%B2%E7%A8%8B%E8%A6%8F%E5%8A%83/%E8%AA%B2%E7%A8%8B%E5%9C%B0%E5%9C%96",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立臺中女子高級中等學校",
+      "short_name": "臺中女中",
+      "district": "西區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://tcgs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "教學組｜114課程計畫",
+          "url": "https://itcgs.tcgs.tc.edu.tw/ischool/publish_page/10/?cid=3542",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立文華高級中等學校",
+      "short_name": "文華高中",
+      "district": "西屯區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://whsh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "108課綱大平台｜114學年度課程計畫",
+          "url": "https://web.whsh.tc.edu.tw/ischool/publish_page/1001/?cid=37431",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "教學組｜文華高中課程計畫（含學習地圖）",
+          "url": "https://web.whsh.tc.edu.tw/ischool/publish_page/4/?cid=38406",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立西苑高級中學",
+      "short_name": "西苑高中",
+      "district": "西屯區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://sysh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程諮詢專區｜114入學新生課程地圖暨選課說明",
+          "url": "https://sites.google.com/sysh.tc.edu.tw/featured-courses/%E9%A6%96%E9%A0%81",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立清水高級中學",
+      "short_name": "清水高中",
+      "district": "清水區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://www.cshs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程諮詢網站｜113、114學年度學校課程地圖",
+          "url": "https://sites.google.com/ms.cshs.tc.edu.tw/class/course/online/chap03",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立大甲高級中學",
+      "short_name": "大甲高中",
+      "district": "大甲區",
+      "type": "市立 綜合型",
+      "track_types": [
+        "普通型",
+        "技術型",
+        "綜合型"
+      ],
+      "departments": [],
+      "website_url": "https://djsh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "114學年度新生入學課程計畫書（普/技/綜）",
+          "url": "https://djsh.tc.edu.tw/p/405-1073-449602%2Cc11633.php",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "114學年度多元選修課程介紹",
+          "url": "https://sites.google.com/djsh.tc.edu.tw/1080712/%E5%A4%9A%E5%85%83%E9%81%B8%E4%BF%AE%E5%B0%88%E5%8D%80/114%E5%AD%B8%E5%B9%B4%E5%BA%A6%E5%A4%9A%E5%85%83%E9%81%B8%E4%BF%AE%E8%AA%B2%E7%A8%8B%E4%BB%8B%E7%B4%B9",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立中港高級中學",
+      "short_name": "中港高中",
+      "district": "梧棲區",
+      "type": "市立 綜合型（含國中部）",
+      "track_types": [
+        "普通型",
+        "綜合型"
+      ],
+      "departments": [],
+      "website_url": "https://cgsh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程計畫（含114學年度）",
+          "url": "https://cgsh.tc.edu.tw/p/412-1070-11268.php",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立后綜高級中學",
+      "short_name": "后綜高中",
+      "district": "后里區",
+      "type": "市立 綜合型",
+      "track_types": [
+        "普通型",
+        "綜合型"
+      ],
+      "departments": [],
+      "website_url": "https://www.hcsh.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市立大里高級中學",
+      "short_name": "大里高中",
+      "district": "大里區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://whs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程總體計畫｜114學年度課程計畫-核定版",
+          "url": "https://www.whs.tc.edu.tw/portal/index.php/2022-12-13-23-34-38",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立新社高級中學",
+      "short_name": "新社高中",
+      "district": "新社區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://www.sshs.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市立長億高級中學",
+      "short_name": "長億高中",
+      "district": "南屯區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市立龍津高級中等學校",
+      "short_name": "龍津高中",
+      "district": "龍井區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://ljsh.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市立臺中工業高級中等學校",
+      "short_name": "臺中高工",
+      "district": "東區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "機械科",
+        "汽車科",
+        "製圖科",
+        "資訊科",
+        "電子科",
+        "電機科",
+        "化工科",
+        "圖文傳播科",
+        "建築科",
+        "冷凍空調科"
+      ],
+      "website_url": "https://tcivs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課綱與課程地圖（群科）",
+          "url": "https://tcivs.tc.edu.tw/p/404-1081-40850.php",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "教學組｜課程計畫書（含114學年度）",
+          "url": "https://w3.tcivs.tc.edu.tw/ischool/publish_page/31/?cid=3314",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立沙鹿工業高級中等學校",
+      "short_name": "沙鹿高工",
+      "district": "沙鹿區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "機械科",
+        "汽車科",
+        "資訊科",
+        "電子科",
+        "紡織科",
+        "染整科",
+        "圖文傳播科"
+      ],
+      "website_url": "https://slvs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "學校課程計畫（含114群科總體課程計畫）",
+          "url": "https://slvs.tc.edu.tw/p/412-1082-11187.php?Lang=zh-tw",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "電子科｜課程地圖（含111以後）",
+          "url": "https://slvs.tc.edu.tw/p/412-1082-11111.php?Lang=zh-tw",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立東勢工業高級中等學校",
+      "short_name": "東勢高工",
+      "district": "東勢區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "機械科",
+        "製圖科",
+        "汽車科",
+        "資訊科",
+        "電子科"
+      ],
+      "website_url": "https://tsvs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "114學年度實用技能學程課程計畫（公告版）",
+          "url": "https://tsvs.tc.edu.tw/p/406-1083-453731%2Cr1657.php",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立神岡工業高級中等學校",
+      "short_name": "神岡高工",
+      "district": "神岡區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "機械科",
+        "汽車科",
+        "資訊科",
+        "電子科",
+        "電機科",
+        "建築科"
+      ],
+      "website_url": "https://sgihs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "課程計畫（含114學年度入學技術型課程計畫）",
+          "url": "https://sgihs.tc.edu.tw/p/424-1120-672.php",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立霧峰農業工業高級中等學校",
+      "short_name": "霧峰農工",
+      "district": "霧峰區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "生農群各科",
+        "電機科",
+        "電子科",
+        "機械科",
+        "圖文傳播科",
+        "食品加工科",
+        "園藝科",
+        "畜產保健科",
+        "生物產業機電科"
+      ],
+      "website_url": "https://wufai.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "電機科｜課程地圖(108~114) 等專業課程資訊",
+          "url": "https://sites.google.com/wufai.tc.edu.tw/wufai-ee721/%E5%B0%88%E6%A5%AD%E8%AA%B2%E7%A8%8B%E8%A8%88%E5%8A%83%E6%9B%B8",
+          "year": 114,
+          "source": "Google Sites"
+        },
+        {
+          "title": "電子科｜課程升學就業（含課表/課程地圖）",
+          "url": "https://sites.google.com/wufai.tc.edu.tw/web-electronic-features/%E8%AA%B2%E7%A8%8B%E5%8D%87%E5%AD%B8%E5%B0%B1%E6%A5%AD",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立臺中家事商業高級中等學校",
+      "short_name": "臺中家商",
+      "district": "東區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "商業經營科",
+        "會計事務科",
+        "資料處理科",
+        "應用英語科",
+        "幼兒保育科",
+        "流行服飾科",
+        "觀光事業科",
+        "餐飲管理科"
+      ],
+      "website_url": "https://www.tchcvs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "公告｜114學年度入學 選課輔導手冊與課程計畫書",
+          "url": "https://tchcvs.tc.edu.tw/p/406-1087-497281%2Cr11.php",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "教務處Google站｜課程計畫/選課資訊",
+          "url": "https://sites.google.com/tchcvs.tw/unit-1c/%E6%95%99%E5%AD%B8%E7%B5%84/%E8%AA%B2%E7%A8%8B%E8%A8%88%E7%95%AB",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市立豐原高級中等學校",
+      "short_name": "豐原高中",
+      "district": "豐原區",
+      "type": "市立 普通型",
+      "track_types": [
+        "普通型"
+      ],
+      "departments": [],
+      "website_url": "https://fysh.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市立豐原高級商業職業學校",
+      "short_name": "豐原高商",
+      "district": "豐原區",
+      "type": "市立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "商業經營科",
+        "國際貿易科",
+        "會計事務科",
+        "資料處理科",
+        "應用英語科",
+        "電子商務科"
+      ],
+      "website_url": "https://fyvs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "豐商多元選修＆微課程平台（含114微課程）",
+          "url": "https://sites.google.com/fyvs.tc.edu.tw/109fyvscurriculum/",
+          "year": 114,
+          "source": "Google Sites"
+        },
+        {
+          "title": "課程計畫書（新課綱專區）",
+          "url": "https://fyvs.tc.edu.tw/p/412-1085-5010.php",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市私立衛道高級中學",
+      "short_name": "衛道高中",
+      "district": "北屯區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "餐飲管理科",
+        "觀光事業科",
+        "資訊科",
+        "資料處理科",
+        "國際貿易科",
+        "商業經營科",
+        "應用英語科",
+        "應用日語科",
+        "廣告設計科",
+        "多媒體設計科",
+        "幼兒保育科",
+        "美容科"
+      ],
+      "website_url": "https://www.vtsh.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "衛道高中114課程計畫（含課程地圖）PDF",
+          "url": "https://www.vtsh.tc.edu.tw/wp-content/uploads/doc/Vtsh210/%E7%A7%81%E7%AB%8B%E8%A1%9B%E9%81%93%E9%AB%98%E4%B8%AD114%E8%AA%B2%E7%A8%8B%E8%A8%88%E7%95%AB.pdf",
+          "year": 114,
+          "source": "校網PDF"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市私立新民高級中學",
+      "short_name": "新民高中",
+      "district": "北區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "商業經營科",
+        "國際貿易科",
+        "資料處理科",
+        "電子商務科",
+        "應用英語科",
+        "應用日語科",
+        "資訊科",
+        "電機科",
+        "電子科",
+        "美工科",
+        "廣告設計科",
+        "室內設計科"
+      ],
+      "website_url": "https://www.shinmin.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "學校課程計畫書專區（含114）",
+          "url": "https://www.shinmin.tc.edu.tw/ischool/publish_page/128/?cid=16106",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    },
+    {
+      "school_name": "明道中學",
+      "short_name": "明道中學",
+      "district": "烏日區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "資訊科",
+        "資料處理科",
+        "商業經營科",
+        "國際貿易科",
+        "觀光事業科",
+        "餐飲管理科",
+        "應用英語科",
+        "多媒體設計科"
+      ],
+      "website_url": "https://www.mingdao.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "高中部課程地圖（普通科）",
+          "url": "https://www2.mingdao.edu.tw/senior/study/study02.html",
+          "year": 114,
+          "source": "校網"
+        },
+        {
+          "title": "技高部總體課程（含114）",
+          "url": "https://sites.google.com/ms.mingdao.edu.tw/mdvhtg/%E6%95%99%E5%AD%B8%E7%B5%84/%E6%8A%80%E9%AB%98%E9%83%A8%E7%B8%BD%E9%AB%94%E8%AA%B2%E7%A8%8B",
+          "year": 114,
+          "source": "Google Sites"
+        }
+      ]
+    },
+    {
+      "school_name": "臺中市私立僑泰高級中學",
+      "short_name": "僑泰高中",
+      "district": "北屯區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型",
+        "綜合型"
+      ],
+      "departments": [
+        "普通科",
+        "汽車科",
+        "資訊科",
+        "觀光事業科",
+        "餐飲管理科",
+        "電子商務科",
+        "多媒體設計科",
+        "應用日語科",
+        "幼兒保育科",
+        "美容科",
+        "照顧服務科",
+        "時尚造型科",
+        "飛機修護科",
+        "航空電子科"
+      ],
+      "website_url": "https://www.ciaotai.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市私立弘文高級中學",
+      "short_name": "弘文高中",
+      "district": "潭子區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "資訊科",
+        "觀光事業科",
+        "餐飲管理科",
+        "應用英語科",
+        "美工科",
+        "廣告設計科"
+      ],
+      "website_url": "https://www.hwhs.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市私立華盛頓高級中學",
+      "short_name": "華盛頓高中",
+      "district": "西屯區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "音樂科",
+        "舞蹈科",
+        "電影電視科",
+        "汽車科",
+        "電子科",
+        "資料處理科",
+        "廣告設計科",
+        "餐飲管理科",
+        "美容科"
+      ],
+      "website_url": "https://www.wsh.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市私立大明高級中學（大里本部）",
+      "short_name": "大明高中",
+      "district": "大里區",
+      "type": "私立 普通型/技術型",
+      "track_types": [
+        "普通型",
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "機械科",
+        "汽車科",
+        "資訊科",
+        "電子科",
+        "資料處理科",
+        "廣告設計科",
+        "觀光事業科",
+        "餐飲管理科",
+        "多媒體設計科",
+        "應用英語科",
+        "應用日語科",
+        "幼兒保育科",
+        "美容科",
+        "流行服飾科"
+      ],
+      "website_url": "https://www.taiminghs.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市私立青年高級中學",
+      "short_name": "青年高中",
+      "district": "北區",
+      "type": "私立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "普通科",
+        "汽車科",
+        "資訊科",
+        "觀光事業科",
+        "餐飲管理科",
+        "電子商務科",
+        "美工科",
+        "廣告設計科",
+        "多媒體動畫科"
+      ],
+      "website_url": "https://www.tcsh.tc.edu.tw/",
+      "course_map_links": []
+    },
+    {
+      "school_name": "臺中市私立致用高級中學",
+      "short_name": "致用高中",
+      "district": "西屯區",
+      "type": "私立 技術型",
+      "track_types": [
+        "技術型"
+      ],
+      "departments": [
+        "資訊科",
+        "資料處理科",
+        "多媒體設計科"
+      ],
+      "website_url": "https://www.cycivs.tc.edu.tw/",
+      "course_map_links": [
+        {
+          "title": "資料處理科｜114課程地圖",
+          "url": "https://www.cycivs.tc.edu.tw/ischool/publish_page/26/?cid=2553",
+          "year": 114,
+          "source": "校網"
+        }
+      ]
+    }
+  ]
+}
